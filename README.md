@@ -34,3 +34,38 @@ string function
       - `Just "COMP3141"`
    - `"My favourite subject is MATH1141" =~ comp3141 :: Maybe String`
       - `Nothing`
+      
+choose function
+- `choose :: [RE a] -> RE a`
+- `let re = choose [string "COMP", string "MATH", string "PHYS"]`
+   - `"COMP3141, MATH1081, PHYS1121, COMP3121" =~ re :: [String]`
+      - `["COMP","MATH","PHYS","COMP"]`
+ - `"abc" =~ choose [] :: Maybe String`
+    - `Nothing`
+    
+option function
+- `option :: RE a -> RE (Maybe a)`
+- `let digits = Char ['0'..'9']`
+   - `let sign = Action (fromMaybe '+') (option (Char ['-'])`
+   - `"-30 5 3" =~ (sign `cons` plus digits) :: [String]`
+   - `["-30","-3","+30","+3","+0","+5","+3"]`
+- `"foo" =~ option (Char ['a']) :: [Maybe Char]`
+   - `[Nothing,Nothing,Nothing,Nothing]`
+   
+rpt function
+- `rpt :: Int -> RE a -> RE [a]`
+- `let digits = Char ['0'..'9']`
+   - `let programs = choose [string "COMP", string "PHYS", string "MATH"]`
+   - `let courseCode = programs `Seq` rpt 4 digits`
+   - `"COMP3141, MATH1081, and PHYS1121" =~ courseCode :: [(String,String)]`
+      - `[("COMP","3141"),("MATH","1081"),("PHYS","1121")]`
+- `"foo" =~ rpt 0 (Char ['a']) :: Maybe [Char]`
+   - `Just ""`
+   
+rptRange function
+- `rptRange :: (Int, Int) -> RE a -> RE [a]`
+- `"1234" =~ rptRange (2,4) (Char ['0'..'9']) :: [String]`
+   - `["1234","123","12","234","23","34"]`
+- `"1234" =~ rptRange (3,3) (Char ['0'..'9']) :: [String]`
+   - `["123","234"]`
+
