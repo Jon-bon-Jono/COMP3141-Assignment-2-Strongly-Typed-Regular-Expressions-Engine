@@ -30,6 +30,7 @@ plus function
 string function
 - `string :: String -> RE String`
 - `let comp3141 = string "COMP3141"`
+
 `"My favourite subject is COMP3141" =~ comp3141 :: Maybe String`
       - `Just "COMP3141"`
    - `"My favourite subject is MATH1141" =~ comp3141 :: Maybe String`
