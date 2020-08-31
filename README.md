@@ -69,3 +69,8 @@ rptRange function
 - `"1234" =~ rptRange (3,3) (Char ['0'..'9']) :: [String]`
    - `["123","234"]`
 
+## Usage
+Build:
+`stack build`
+Test:
+`stack exec HareTests`
